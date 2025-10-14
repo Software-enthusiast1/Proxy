@@ -33,6 +33,16 @@ const QuickLinks = ({ cls, nav = true }) => {
       icon: 'https://github.com/favicon.ico',
       name: 'GitHub',
     },
+    {
+      link: 'https://neal.fun',
+      icon: '/assets/img/nf.webp',
+      name: 'neal.fun',
+    },
+    {
+      link: 'https://play.geforcenow.com',
+      icon: '/assets/img/geforcenow.webp',
+      name: 'GeForce Now'
+    },
   ];
   const [quickLinks, setQuickLinks] = useState(() => JSON.parse(localStorage.getItem('options') || {}).quickLinks ?? defaultLinks);
   const [isOpen, setOpen] = useState(false);
