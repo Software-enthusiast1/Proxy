@@ -26,7 +26,7 @@ const Nav = memo(() => {
   const dimensions = useMemo(() => ({
     navHeight: Math.round(69 * scale),
     logoWidth: Math.round(150 * scale),
-    logoHeight: Math.round(45 * scale),
+    logoHeight: Math.round(35 * scale),
     versionFont: Math.round(9 * scale),
     versionMargin: Math.round(-10 * scale)
   }), [scale]);

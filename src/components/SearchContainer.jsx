@@ -102,7 +102,7 @@ const SearchContainer = memo(function SearchContainer({ logo = true, cls, nav = 
       data-m={!cls && 'bounce-up'}
       data-m-duration={!cls && '0.8'}
     >
-      {logo && <Logo options="w-[25rem] h-30" />}
+      {logo && <Logo options="w-[20rem] h-20" />}
       <GlowWrapper
         glowOptions={{ color: options.glowWrapperColor || '255, 255, 255', size: 70, opacity: 0.2 }}
       >

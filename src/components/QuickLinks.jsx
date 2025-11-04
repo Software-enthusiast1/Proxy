@@ -34,14 +34,14 @@ const QuickLinks = ({ cls, nav = true }) => {
       name: 'GitHub',
     },
     {
+      link: 'https://discord.com',
+      icon: '/assets/img/discord.webp',
+      name: 'Discord',
+    },
+    {
       link: 'https://neal.fun',
       icon: '/assets/img/nf.webp',
       name: 'neal.fun',
-    },
-    {
-      link: 'https://play.geforcenow.com',
-      icon: '/assets/img/geforcenow.webp',
-      name: 'GeForce Now'
     },
   ];
   const [quickLinks, setQuickLinks] = useState(() => JSON.parse(localStorage.getItem('options') || {}).quickLinks ?? defaultLinks);
@@ -78,7 +78,9 @@ const QuickLinks = ({ cls, nav = true }) => {
         !cls ? 'w-full max-w-[40rem] mx-auto mt-[16rem]' : cls,
       )}
     >
-      {quickLinks.map((link, i) => (
+      {quickLinks.map((link, i) => {
+        const isLocal = typeof link.icon === 'string' && link.icon.startsWith('/assets/img');
+        return (
         <div className={linkItem} key={i} onClick={() => g(link.link)}>
           <div
             onClick={(e) => {
@@ -100,14 +102,15 @@ const QuickLinks = ({ cls, nav = true }) => {
               <img
                 src={link.icon}
                 alt={link.name}
-                className="w-7 h-7 object-contain"
+                className={clsx('w-7 h-7', isLocal ? 'rounded-full object-cover' : 'object-contain')}
                 onError={() => setFallback((prev) => ({ ...prev, [i]: true }))}
               />
             )}
           </div>
           <div className="mt-3 text-sm font-medium text-center">{link.name}</div>
         </div>
-      ))}
+        );
+      })}
       <div className={`${linkItem} cursor-pointer`} onClick={() => setOpen(true)}>
         <div className={linkLogo}>
           <Plus className="w-7 h-7" />
