@@ -49,6 +49,7 @@ const app = Fastify({
 
 await app.register(fastifyCookie);
 
+
 await app.register(fastifyCors, {
   origin: (origin, callback) => {
     if (!origin) {
@@ -57,9 +58,9 @@ await app.register(fastifyCors, {
       return;
     }
     
-    // Allow google.* domains and youtube.com
-    const isGoogleOrYouTube = /^https?:\/\/(.*\.)?(google\..+|youtube\.com|youtu\.be)$/i.test(origin);
-    callback(null, isGoogleOrYouTube);
+    // Allow only sites.google.com
+    const isSitesGoogle = /^https?:\/\/sites\.google\.com$/i.test(origin);
+    callback(null, isSitesGoogle);
   },
   credentials: true
 });
