@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import Fastify from "fastify";
 import fastifyStatic from "@fastify/static";
 import fastifyCookie from "@fastify/cookie";
+import fastifyCors from "@fastify/cors";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createServer } from "node:http";
@@ -47,6 +48,20 @@ const app = Fastify({
 });
 
 await app.register(fastifyCookie);
+
+await app.register(fastifyCors, {
+  origin: (origin, callback) => {
+    const googleDomainsRegex = /^https?:\/\/(.*\.)?google\.(com|co\.\w+|ca|de|fr|it|es|com\.au|com\.br|com\.mx|co\.uk|co\.in|co\.jp|com\.ar|com\.tr|com\.vn|co\.kr|co\.th|com\.sg|com\.my|co\.id|com\.hk|com\.tw)$/i;
+    const youtubeRegex = /^https?:\/\/(www\.)?(youtube|youtu\.be)\.(com|co\.\w+)$/i;
+    
+    if (!origin || googleDomainsRegex.test(origin) || youtubeRegex.test(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed"), false);
+    }
+  },
+  credentials: true
+});
 
 app.register(fastifyStatic, {
   root: join(__dirname, "dist"),
